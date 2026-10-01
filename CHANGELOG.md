@@ -34,7 +34,7 @@ Commit: `ec495cc`
 
 ## 2026-10-01 — Navegação e estrutura inicial da Nova Auditoria
 
-Commit: pendente
+Commit: ecbdd33
 
 - Criada a página `pages/1_nova_auditoria.py` com a estrutura inicial do formulário (seleção do processo Gestão de Mudanças).
 - O botão "Nova Auditoria" do `app.py` passou a direcionar para a nova página.
