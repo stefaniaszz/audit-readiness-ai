@@ -10,9 +10,9 @@ Desenvolver o Audit Readiness AI, um sistema voltado ao apoio de processos de pr
 
 ## 2. Estado atual do projeto
 
-O projeto está em fase inicial de desenvolvimento.
+O projeto está em fase inicial de desenvolvimento (Sprint 1, sem IA).
 
-A estrutura inicial do projeto já foi criada e o ambiente de desenvolvimento está configurado.
+A estrutura inicial do projeto já foi criada, o ambiente de desenvolvimento está configurado e a navegação inicial da Nova Auditoria está implementada: a tela inicial leva a uma página própria, com a estrutura inicial do formulário para o processo Gestão de Mudanças (Change Management).
 
 ---
 
@@ -29,7 +29,20 @@ A estrutura inicial do projeto já foi criada e o ambiente de desenvolvimento es
 
 ## 4. Estrutura atual
 
-A estrutura do projeto está organizada em diretórios para separar responsabilidades.
+A estrutura do projeto está organizada em diretórios para separar responsabilidades:
+
+- `app.py` — tela inicial do Streamlit
+- `pages/` — interface (páginas do Streamlit); contém `1_nova_auditoria.py`
+- `core/` — regras de negócio (ainda vazio)
+- `services/` — integrações e processamento (ainda vazio)
+- `prompts/` — comportamento da IA (ainda vazio)
+- `models/` — estruturas de dados (ainda vazio)
+- `data/` — controles e exemplos (ainda vazio)
+- `utils/` — funções auxiliares (ainda vazio)
+- `test_cases/` — ainda vazio
+- `requirements.txt` — dependências (Streamlit com versão fixada)
+
+As pastas ainda vazias contêm apenas `.gitkeep`.
 
 > Esta seção deve ser atualizada sempre que a estrutura do projeto sofrer alterações relevantes.
 
@@ -42,12 +55,16 @@ A estrutura do projeto está organizada em diretórios para separar responsabili
 - [x] Configuração inicial do Streamlit
 - [x] Versionamento do projeto com Git
 - [x] Repositório remoto configurado no GitHub
+- [x] Navegação inicial: o botão "Nova Auditoria" da tela inicial leva à página `pages/1_nova_auditoria.py`
+- [x] Página Nova Auditoria com estrutura inicial do formulário (seleção do processo Gestão de Mudanças; sem persistência definitiva)
 
 ---
 
 ## 6. Em desenvolvimento
 
-Nenhuma funcionalidade específica está registrada nesta seção no momento.
+Nenhuma funcionalidade está em desenvolvimento no momento.
+
+Ainda não implementado na Sprint 1: biblioteca de controles e criticidade. Os campos adicionais do formulário de Nova Auditoria ainda não foram definidos.
 
 ---
 
@@ -67,6 +84,14 @@ O projeto utiliza Git para controle de versão e GitHub como repositório remoto
 
 O Streamlit foi adotado como tecnologia inicial para a interface da aplicação.
 
+### Navegação
+
+A navegação usa o recurso de múltiplas páginas do Streamlit: arquivos dentro de `pages/` viram páginas da aplicação, e o botão da tela inicial usa `st.switch_page("pages/1_nova_auditoria.py")`. Não há solução de navegação customizada.
+
+### Lista de processos
+
+Nesta etapa, o único processo disponível (Gestão de Mudanças) é uma constante simples dentro de `pages/1_nova_auditoria.py`. Não foi criado um modelo de domínio em `models/`, porque ainda não há atributos ou regras definidos que justifiquem isso. A decisão deve ser revista quando a biblioteca de controles precisar associar controles a processos.
+
 ### Ambiente
 
 O desenvolvimento utiliza um ambiente virtual Python (`.venv`), mantido fora do versionamento por meio do `.gitignore`.
@@ -85,7 +110,9 @@ Data: 01/10/2026
 
 Último commit conhecido:
 
-`ec495cc chore: fixar versão do Streamlit`
+`b2a0a12 docs: adicionar contexto e changelog do projeto`
+
+As alterações da Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) ainda não foram commitadas.
 
 ---
 

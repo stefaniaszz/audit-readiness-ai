@@ -21,4 +21,5 @@ st.info(
     "🚧 Projeto em desenvolvimento — Sprint 1"
 )
 
-st.button("Nova Auditoria")
+if st.button("Nova Auditoria"):
+    st.switch_page("pages/1_nova_auditoria.py")
