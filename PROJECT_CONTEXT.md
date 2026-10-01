@@ -110,9 +110,9 @@ Data: 01/10/2026
 
 Último commit conhecido:
 
-`b2a0a12 docs: adicionar contexto e changelog do projeto`
+`c30be63` — estado atual publicado no GitHub.
 
-As alterações da Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) ainda não foram commitadas.
+As alterações da Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foram implementadas, commitadas e enviadas ao repositório remoto.
 
 ---
 
