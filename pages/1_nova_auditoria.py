@@ -12,8 +12,7 @@ st.set_page_config(
 st.title("Nova Auditoria")
 
 st.write(
-    "Inicie a preparação de uma nova auditoria escolhendo "
-    "o processo que será avaliado."
+    "Preencha os dados iniciais da avaliação que será preparada."
 )
 
 if st.button("← Voltar ao início"):
@@ -21,25 +20,55 @@ if st.button("← Voltar ao início"):
 
 st.divider()
 
-st.subheader("Processo a ser auditado")
-
-st.caption(
-    "Neste momento, o único processo disponível é Gestão de Mudanças."
-)
+st.subheader("Dados da avaliação")
 
 with st.form("form_nova_auditoria"):
+    nome_avaliacao = st.text_input("Nome da avaliação")
+
     processo = st.selectbox(
         "Processo",
         options=PROCESSOS_DISPONIVEIS,
     )
+    st.caption(
+        "Neste momento, o único processo disponível é Gestão de Mudanças."
+    )
+
+    st.markdown("**Período avaliado**")
+    col_inicial, col_final = st.columns(2)
+    with col_inicial:
+        data_inicial = st.date_input(
+            "Data inicial",
+            value=None,
+            format="DD/MM/YYYY",
+        )
+    with col_final:
+        data_final = st.date_input(
+            "Data final",
+            value=None,
+            format="DD/MM/YYYY",
+        )
+
+    objetivo = st.text_area("Objetivo")
+
+    escopo = st.text_area("Escopo")
+
+    descricao_processo = st.text_area("Descrição do processo")
 
     enviado = st.form_submit_button("Continuar")
 
 if enviado:
     # Guarda apenas durante a sessão atual; não há persistência definitiva.
-    st.session_state["nova_auditoria"] = {"processo": processo}
+    st.session_state["nova_auditoria"] = {
+        "nome_avaliacao": nome_avaliacao,
+        "processo": processo,
+        "data_inicial": data_inicial,
+        "data_final": data_final,
+        "objetivo": objetivo,
+        "escopo": escopo,
+        "descricao_processo": descricao_processo,
+    }
 
-    st.success(f"Processo selecionado: {processo}")
+    st.success("Dados da avaliação recebidos nesta sessão.")
     st.info(
         "🚧 As próximas etapas da Nova Auditoria "
         "(como a seleção de controles) ainda não foram implementadas."

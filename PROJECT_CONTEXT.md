@@ -110,9 +110,13 @@ Data: 01/10/2026
 
 Último commit conhecido:
 
-`c30be63` — estado atual publicado no GitHub.
+`682e827 docs: atualizar estado do projeto`
 
-As alterações da Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foram implementadas, commitadas e enviadas ao repositório remoto.
+A Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foi implementada, commitada e enviada ao repositório remoto.
+
+A Tarefa 02 (completar o formulário de Nova Auditoria) foi implementada e validada localmente, mas ainda não foi commitada nem enviada ao repositório remoto.
+
+O código local atualmente contém as alterações da Tarefa 02.
 
 ---
 

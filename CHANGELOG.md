@@ -34,12 +34,24 @@ Commit: `ec495cc`
 
 ## 2026-10-01 — Navegação e estrutura inicial da Nova Auditoria
 
-Commit: ecbdd33
+Commit: `ecbdd33`
 
 - Criada a página `pages/1_nova_auditoria.py` com a estrutura inicial do formulário (seleção do processo Gestão de Mudanças).
 - O botão "Nova Auditoria" do `app.py` passou a direcionar para a nova página.
 - Adicionado botão para voltar à tela inicial.
 - Sem IA, motor de avaliação, análise de evidências, score, dashboard, banco de dados ou persistência definitiva.
+
+---
+
+## 2026-10-01 — Formulário completo de Nova Auditoria
+
+Commit: pendente
+
+- Completo o formulário da página `pages/1_nova_auditoria.py` conforme a especificação, mantendo o processo disponível como Gestão de Mudanças (Change Management).
+- Adicionados os campos: Nome da avaliação, Período avaliado (Data inicial e Data final), Objetivo, Escopo e Descrição do processo.
+- Os campos começam vazios; as datas usam o formato DD/MM/YYYY.
+- Ao enviar, os dados ficam em `st.session_state` e a página mostra uma confirmação simples. Não há persistência definitiva.
+- Sem validação de campos obrigatórios ou de período, sem IA, biblioteca de controles, criticidade, score, dashboard ou banco de dados.
 
 ---
 
