@@ -121,13 +121,15 @@ Data: 06/10/2026
 
 **Último commit no repositório:**
 
-`de674a9 feat: completar formulário de nova auditoria`
+`32dd9ad feat: criar home da aplicação`
 
 A Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foi implementada, commitada e enviada ao repositório remoto.
 
 A Tarefa 02 (completar o formulário de Nova Auditoria) foi implementada, commitada e enviada ao repositório remoto.
 
-A tarefa AR-07 (navegação principal) foi implementada e validada localmente, mas ainda não foi commitada nem enviada ao repositório remoto.
+A tarefa AR-07 (navegação principal) foi implementada, commitada e enviada ao repositório remoto.
+
+A tarefa AR-08 (Home da aplicação) foi implementada, validada localmente e commitada. O commit ainda não foi enviado ao repositório remoto.
 
 ---
 
