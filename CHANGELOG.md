@@ -93,6 +93,17 @@ Commit: `32dd9ad`
 
 ---
 
+## 2026-10-06 — Primeiro deploy no Streamlit Community Cloud 
+
+- Publicada a primeira versão da aplicação no Streamlit Community Cloud.
+- Repositório utilizado: `stefaniaszz/audit-readiness-ai`.
+- Branch utilizada: `master`.
+- Arquivo principal da aplicação: `app.py`.
+- Aplicação disponibilizada através de uma URL pública.
+- Realizados testes da Home e das páginas de Nova Auditoria, Resultado, Simulador Auditor e Configurações.
+- Todas as páginas foram carregadas e utilizadas sem erros.
+- Não foram necessárias alterações no código da aplicação ou inclusão de novas dependências para realizar o deploy.
+- URL pública: `https://audit-readiness-ai-xvskt2cm2b6exsv2v6bjx.streamlit.app/`.
 
 ## Próximas alterações
 

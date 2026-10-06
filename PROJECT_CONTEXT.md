@@ -14,6 +14,12 @@ O projeto está em fase inicial de desenvolvimento (Sprint 1, sem IA).
 
 A estrutura inicial do projeto já foi criada, o ambiente de desenvolvimento está configurado, a página Nova Auditoria está implementada com o formulário da especificação para o processo Gestão de Mudanças (Change Management), e a navegação principal está preparada: o menu lateral do Streamlit dá acesso a Nova Auditoria, Resultado, Simular Auditor e Configurações. As três últimas são páginas provisórias, apenas com título e aviso de que estão em desenvolvimento.
 
+A Home da aplicação foi implementada com a identificação do Audit Readiness AI, uma breve explicação do propósito da ferramenta e uma chamada para iniciar uma nova avaliação.
+
+A primeira versão da aplicação foi publicada no Streamlit Community Cloud e está disponível através de uma URL pública. O deploy foi realizado a partir do repositório GitHub `stefaniaszz/audit-readiness-ai`, utilizando a branch `master` e o arquivo principal `app.py`.
+
+A aplicação publicada foi validada funcionalmente. Foram testadas a Home, Nova Auditoria, Resultado, Simulador Auditor e Configurações, todas funcionando sem erros.
+
 ---
 
 ## 3. Tecnologias
@@ -32,7 +38,7 @@ A estrutura inicial do projeto já foi criada, o ambiente de desenvolvimento est
 A estrutura do projeto está organizada em diretórios para separar responsabilidades:
 
 - `app.py` — tela inicial do Streamlit
-- `pages/` — interface (páginas do Streamlit); contém `1_nova_auditoria.py`, `2_resultado.py`, `3_simular_auditor.py` e `4_configuracoes.py`
+- `pages/` — interface (páginas do Streamlit); contém `1_nova_auditoria.py`, `2_resultado.py`, `3_simulador_auditor.py` e `4_configuracoes.py`
 - `core/` — regras de negócio (ainda vazio)
 - `services/` — integrações e processamento (ainda vazio)
 - `prompts/` — comportamento da IA (ainda vazio)
@@ -60,6 +66,11 @@ As pastas ainda vazias contêm apenas `.gitkeep`.
 - [x] Formulário de Nova Auditoria completo conforme a especificação (Nome da avaliação, Processo, Período avaliado, Objetivo, Escopo e Descrição do processo); os valores ficam apenas na sessão
 - [x] Navegação principal (AR-07): menu lateral do Streamlit com Nova Auditoria, Resultado, Simular Auditor e Configurações
 - [x] Páginas provisórias `2_resultado.py`, `3_simular_auditor.py` e `4_configuracoes.py` (apenas título e aviso de desenvolvimento)
+- [x] Home da aplicação (AR-08), com identificação do sistema, descrição do propósito e acesso à Nova Auditoria
+
+- [x] Primeiro deploy da aplicação no Streamlit Community Cloud (AR-09)
+
+- [x] Validação da aplicação publicada, incluindo Home, Nova Auditoria, Resultado, Simulador Auditor e Configurações
 
 ---
 
@@ -121,7 +132,7 @@ Data: 06/10/2026
 
 **Último commit no repositório:**
 
-`32dd9ad feat: criar home da aplicação`
+`a74c2c4 docs: atualizar contexto e changelog do AR-08`
 
 A Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foi implementada, commitada e enviada ao repositório remoto.
 
@@ -129,7 +140,13 @@ A Tarefa 02 (completar o formulário de Nova Auditoria) foi implementada, commit
 
 A tarefa AR-07 (navegação principal) foi implementada, commitada e enviada ao repositório remoto.
 
-A tarefa AR-08 (Home da aplicação) foi implementada, validada localmente e commitada. O commit ainda não foi enviado ao repositório remoto.
+A tarefa AR-08 (Home da aplicação) foi implementada, validada localmente, commitada e enviada ao repositório remoto.
+
+A tarefa AR-09 (primeiro deploy no Streamlit Community Cloud) foi executada com sucesso. A aplicação foi publicada em uma URL pública e todas as páginas existentes foram validadas sem erros.
+
+URL pública da aplicação:
+
+`https://audit-readiness-ai-xvskt2cm2b6exsv2v6bjx.streamlit.app/`
 
 ---
 
