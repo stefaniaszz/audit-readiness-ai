@@ -36,7 +36,7 @@ Commit: `ec495cc`
 
 Commit: `ecbdd33`
 
-- Criada a página `pages/1_nova_auditoria.py` com a estrutura inicial do formulário (seleção do processo Gestão de Mudanças).
+- Criada a página `pages/1_nova_auditoria.py` com a estrutura inicial do formulário, incluindo a seleção do processo Gestão de Mudanças (Change Management).
 - O botão "Nova Auditoria" do `app.py` passou a direcionar para a nova página.
 - Adicionado botão para voltar à tela inicial.
 - Sem IA, motor de avaliação, análise de evidências, score, dashboard, banco de dados ou persistência definitiva.
@@ -45,13 +45,25 @@ Commit: `ecbdd33`
 
 ## 2026-10-01 — Formulário completo de Nova Auditoria
 
-Commit: pendente
+Commit: `de674a9`
 
 - Completo o formulário da página `pages/1_nova_auditoria.py` conforme a especificação, mantendo o processo disponível como Gestão de Mudanças (Change Management).
 - Adicionados os campos: Nome da avaliação, Período avaliado (Data inicial e Data final), Objetivo, Escopo e Descrição do processo.
-- Os campos começam vazios; as datas usam o formato DD/MM/YYYY.
-- Ao enviar, os dados ficam em `st.session_state` e a página mostra uma confirmação simples. Não há persistência definitiva.
+- Os campos começam vazios; as datas utilizam o formato DD/MM/YYYY.
+- Ao enviar, os dados são armazenados em `st.session_state` e a página apresenta uma confirmação simples. Não há persistência definitiva.
 - Sem validação de campos obrigatórios ou de período, sem IA, biblioteca de controles, criticidade, score, dashboard ou banco de dados.
+
+---
+
+## 2026-10-06 — Navegação principal da aplicação (AR-07)
+
+Commit: pendente
+
+- Criadas as páginas provisórias `pages/2_resultado.py`, `pages/3_simular_auditor.py` e `pages/4_configuracoes.py`, cada uma contendo título e aviso de que a funcionalidade está em desenvolvimento.
+- A navegação utiliza o menu lateral automático do Streamlit, gerado a partir dos arquivos presentes em `pages/`.
+- O `app.py` e a página `pages/1_nova_auditoria.py` não foram alterados nesta etapa.
+- Adicionados comentários explicativos nas novas páginas para facilitar a compreensão da estrutura e da navegação.
+- Não foram implementadas funcionalidades de resultado, simulação ou configurações nesta etapa.
 
 ---
 
