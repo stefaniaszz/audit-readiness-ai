@@ -57,7 +57,7 @@ Commit: `de674a9`
 
 ## 2026-10-06 — Navegação principal da aplicação (AR-07)
 
-Commit: pendente
+Commit: `3189620`
 
 - Criadas as páginas provisórias `pages/2_resultado.py`, `pages/3_simular_auditor.py` e `pages/4_configuracoes.py`, cada uma contendo título e aviso de que a funcionalidade está em desenvolvimento.
 - A navegação utiliza o menu lateral automático do Streamlit, gerado a partir dos arquivos presentes em `pages/`.
