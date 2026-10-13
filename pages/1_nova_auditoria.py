@@ -1,3 +1,8 @@
+# Página "Nova Auditoria".
+# Reúne o formulário com os dados iniciais da avaliação. Os dados enviados
+# ficam apenas na sessão atual: ainda não há banco de dados nem persistência.
+# Ao clicar em "Voltar ao início", os dados da avaliação atual são descartados.
+
 import streamlit as st
 
 # Neste MVP, o único processo disponível é Gestão de Mudanças.
@@ -15,61 +20,131 @@ st.write(
     "Preencha os dados iniciais da avaliação que será preparada."
 )
 
+# Número da "versão" do formulário. Ele faz parte do nome (key) do formulário e
+# de cada campo. Sempre que o usuário volta ao início, o número aumenta em 1;
+# assim, na próxima visita, o Streamlit cria campos novos, com valores vazios.
+# (Mudar a key é mais seguro do que tentar apagar o valor de campos existentes.)
+versao = st.session_state.get("nova_auditoria_versao", 0)
+
 if st.button("← Voltar ao início"):
+    # Descarta os dados da avaliação atual (se existirem) e troca a versão
+    # do formulário, o que "limpa" os campos para a próxima visita.
+    st.session_state.pop("nova_auditoria", None)
+    st.session_state["nova_auditoria_versao"] = versao + 1
     st.switch_page("app.py")
 
 st.divider()
 
-st.subheader("Dados da avaliação")
+# st.form agrupa os campos: a página só reage (e valida) quando o botão de
+# envio é clicado, e não a cada letra digitada.
+with st.form(f"form_nova_auditoria_{versao}"):
+    st.subheader("Identificação")
 
-with st.form("form_nova_auditoria"):
-    nome_avaliacao = st.text_input("Nome da avaliação")
+    nome_avaliacao = st.text_input("Nome da avaliação", key=f"nome_avaliacao_{versao}")
 
     processo = st.selectbox(
         "Processo",
         options=PROCESSOS_DISPONIVEIS,
+        key=f"processo_{versao}",
     )
     st.caption(
         "Neste momento, o único processo disponível é Gestão de Mudanças."
     )
 
-    st.markdown("**Período avaliado**")
+    st.subheader("Período avaliado")
+
     col_inicial, col_final = st.columns(2)
     with col_inicial:
+        # value=None deixa a data vazia (sem valor padrão).
         data_inicial = st.date_input(
             "Data inicial",
             value=None,
             format="DD/MM/YYYY",
+            key=f"data_inicial_{versao}",
         )
     with col_final:
         data_final = st.date_input(
             "Data final",
             value=None,
             format="DD/MM/YYYY",
+            key=f"data_final_{versao}",
         )
 
-    objetivo = st.text_area("Objetivo")
+    st.subheader("Contexto da avaliação")
 
-    escopo = st.text_area("Escopo")
+    # Objetivo, escopo e descrição são opcionais.
+    objetivo = st.text_area("Objetivo", key=f"objetivo_{versao}")
 
-    descricao_processo = st.text_area("Descrição do processo")
+    escopo = st.text_area("Escopo", key=f"escopo_{versao}")
 
-    enviado = st.form_submit_button("Continuar")
+    descricao_processo = st.text_area("Descrição do processo", key=f"descricao_processo_{versao}")
 
+    enviado = st.form_submit_button("Enviar dados")
+
+# Tudo abaixo só acontece depois do clique em "Enviar dados".
 if enviado:
-    # Guarda apenas durante a sessão atual; não há persistência definitiva.
-    st.session_state["nova_auditoria"] = {
-        "nome_avaliacao": nome_avaliacao,
-        "processo": processo,
-        "data_inicial": data_inicial,
-        "data_final": data_final,
-        "objetivo": objetivo,
-        "escopo": escopo,
-        "descricao_processo": descricao_processo,
-    }
+    # Lista com as mensagens de erro encontradas na validação.
+    erros = []
 
-    st.success("Dados da avaliação recebidos nesta sessão.")
-    st.info(
-        "🚧 As próximas etapas da Nova Auditoria "
-        "(como a seleção de controles) ainda não foram implementadas."
-    )
+    # strip() remove espaços das pontas: um nome só com espaços conta como vazio.
+    nome_avaliacao = nome_avaliacao.strip()
+    if not nome_avaliacao:
+        erros.append("Informe o nome da avaliação.")
+
+    # As datas são opcionais; a ordem só é verificada se as duas foram preenchidas.
+    if data_inicial and data_final and data_inicial > data_final:
+        erros.append("A data inicial não pode ser posterior à data final.")
+
+    if erros:
+        # Com erros, nada é guardado: o usuário corrige e envia de novo.
+        for erro in erros:
+            st.error(erro)
+    else:
+        # Só chegamos aqui se todas as validações passaram.
+        # st.session_state guarda os dados enquanto a sessão estiver aberta.
+        st.session_state["nova_auditoria"] = {
+            "nome_avaliacao": nome_avaliacao,
+            "processo": processo,
+            "data_inicial": data_inicial,
+            "data_final": data_final,
+            "objetivo": objetivo,
+            "escopo": escopo,
+            "descricao_processo": descricao_processo,
+        }
+
+        st.success("Dados da avaliação recebidos com sucesso.")
+        st.info(
+            "Os dados permanecem apenas na sessão atual e não foram salvos "
+            "permanentemente. Se você recarregar ou fechar a página, "
+            "eles serão perdidos."
+        )
+
+        st.subheader("Resumo dos dados enviados")
+
+        # Datas no formato brasileiro; campos vazios aparecem como "Não informado".
+        resumo = [
+            ("Nome da avaliação", nome_avaliacao),
+            ("Processo", processo),
+            (
+                "Data inicial",
+                data_inicial.strftime("%d/%m/%Y") if data_inicial else "Não informada",
+            ),
+            (
+                "Data final",
+                data_final.strftime("%d/%m/%Y") if data_final else "Não informada",
+            ),
+            ("Objetivo", objetivo.strip() or "Não informado"),
+            ("Escopo", escopo.strip() or "Não informado"),
+            ("Descrição do processo", descricao_processo.strip() or "Não informada"),
+        ]
+
+        for rotulo, valor in resumo:
+            st.markdown(f"**{rotulo}**")
+            # st.text mostra o texto exatamente como foi digitado, sem
+            # interpretar símbolos de formatação (como * ou #).
+            st.text(valor)
+
+        st.info(
+            "🚧 As próximas etapas da Nova Auditoria "
+            "(como a seleção de controles) ainda não foram implementadas."
+        )
