@@ -10,15 +10,19 @@ Desenvolver o Audit Readiness AI, um sistema voltado ao apoio de processos de pr
 
 ## 2. Estado atual do projeto
 
-O projeto está em fase inicial de desenvolvimento (Sprint 1, sem IA).
+O projeto está em fase inicial de desenvolvimento, atualmente na Sprint 2. Ainda não há funcionalidades de inteligência artificial implementadas.
 
-A estrutura inicial do projeto já foi criada, o ambiente de desenvolvimento está configurado, a página Nova Auditoria está implementada com o formulário da especificação para o processo Gestão de Mudanças (Change Management), e a navegação principal está preparada: o menu lateral do Streamlit dá acesso a Nova Auditoria, Resultado, Simular Auditor e Configurações. As três últimas são páginas provisórias, apenas com título e aviso de que estão em desenvolvimento.
+A estrutura inicial do projeto já foi criada, o ambiente de desenvolvimento está configurado, a página Nova Auditoria está implementada com o formulário da especificação para o processo Gestão de Mudanças (Change Management), com validação do nome da avaliação e da ordem das datas, confirmação e resumo dos dados enviados e descarte dos dados ao clicar em "Voltar ao início" (AR11), e a navegação principal está preparada: o menu lateral do Streamlit dá acesso a Nova Auditoria, Resultado, Simular Auditor e Configurações. As três últimas são páginas provisórias, apenas com título e aviso de que estão em desenvolvimento.
 
 A Home da aplicação foi implementada com a identificação do Audit Readiness AI, uma breve explicação do propósito da ferramenta e uma chamada para iniciar uma nova avaliação.
 
 A primeira versão da aplicação foi publicada no Streamlit Community Cloud e está disponível através de uma URL pública. O deploy foi realizado a partir do repositório GitHub `stefaniaszz/audit-readiness-ai`, utilizando a branch `master` e o arquivo principal `app.py`.
 
-A aplicação publicada foi validada funcionalmente. Foram testadas a Home, Nova Auditoria, Resultado, Simulador Auditor e Configurações, todas funcionando sem erros.
+A aplicação publicada foi validada funcionalmente. Foram testadas a Home, Nova Auditoria, Resultado, Simulador Auditor e Configurações, todas funcionando sem erros. Essa validação foi realizada no primeiro deploy, antes da AR11.
+
+A AR11 (formulário de nova avaliação com validação, resumo e descarte dos dados ao voltar ao início) foi implementada, testada manualmente pela desenvolvedora, commitada (`548fbc7`) e enviada ao GitHub. O commit enviado ao GitHub não confirma, por si só, que o deploy publicado foi atualizado: ainda não há registro de que a aplicação publicada contenha a AR11.
+
+Os dados informados no formulário de Nova Auditoria permanecem apenas na sessão atual: ainda não há persistência definitiva.
 
 ---
 
@@ -64,8 +68,9 @@ As pastas ainda vazias contêm apenas `.gitkeep`.
 - [x] Navegação inicial: o botão "Nova Auditoria" da tela inicial leva à página `pages/1_nova_auditoria.py`
 - [x] Página Nova Auditoria com estrutura inicial do formulário (seleção do processo Gestão de Mudanças; sem persistência definitiva)
 - [x] Formulário de Nova Auditoria completo conforme a especificação (Nome da avaliação, Processo, Período avaliado, Objetivo, Escopo e Descrição do processo); os valores ficam apenas na sessão
+- [x] Validação e resumo do formulário de Nova Auditoria (AR11): seções Identificação, Período avaliado e Contexto da avaliação; nome da avaliação obrigatório; data inicial não pode ser posterior à data final quando as duas forem informadas; confirmação e resumo dos dados após envio válido; dados gravados em `st.session_state["nova_auditoria"]` somente após a validação, apenas na sessão atual e sem persistência definitiva; descarte dos dados e limpeza do formulário ao clicar em "← Voltar ao início" (commit `548fbc7`; testado manualmente pela desenvolvedora)
 - [x] Navegação principal (AR-07): menu lateral do Streamlit com Nova Auditoria, Resultado, Simular Auditor e Configurações
-- [x] Páginas provisórias `2_resultado.py`, `3_simular_auditor.py` e `4_configuracoes.py` (apenas título e aviso de desenvolvimento)
+- [x] Páginas provisórias `2_resultado.py`, `3_simulador_auditor.py` e `4_configuracoes.py` (apenas título e aviso de desenvolvimento)
 - [x] Home da aplicação (AR-08), com identificação do sistema, descrição do propósito e acesso à Nova Auditoria
 
 - [x] Primeiro deploy da aplicação no Streamlit Community Cloud (AR-09)
@@ -76,9 +81,9 @@ As pastas ainda vazias contêm apenas `.gitkeep`.
 
 ## 6. Em desenvolvimento
 
-Nenhuma funcionalidade está em desenvolvimento no momento.
+Nenhuma funcionalidade está em desenvolvimento no momento. A AR11 foi concluída: implementada, testada manualmente, commitada e enviada ao GitHub.
 
-Ainda não implementado na Sprint 1: biblioteca de controles e criticidade.
+Ainda não implementados: biblioteca de controles e criticidade, itens listados no escopo original da Sprint 1. Também não existem funcionalidades de inteligência artificial nem persistência definitiva dos dados.
 
 As páginas Resultado, Simular Auditor e Configurações existem apenas como espaços provisórios; suas funcionalidades ainda não foram desenvolvidas.
 
@@ -110,6 +115,14 @@ O número no início do nome do arquivo define a ordem das páginas no menu late
 
 Para definir nomes de menu personalizados, com acentos e letras maiúsculas, seria necessário utilizar uma configuração de navegação explícita com `st.navigation` e `st.Page` no `app.py`. Essa abordagem não foi adotada nesta etapa para manter a implementação simples e compatível com a estrutura atual.
 
+### Formulário de Nova Auditoria
+
+O formulário usa `st.form`, organizado nas seções Identificação, Período avaliado e Contexto da avaliação. A validação ocorre ao clicar em "Enviar dados": o nome da avaliação é obrigatório (um nome só com espaços é considerado vazio) e, se as duas datas forem informadas, a data inicial não pode ser posterior à data final. As datas, o objetivo, o escopo e a descrição do processo são opcionais. Cada erro de validação tem uma mensagem específica.
+
+Os dados são gravados em `st.session_state["nova_auditoria"]` somente depois que todas as validações passam; um envio inválido não altera dados já gravados. Após um envio válido, a página mostra a confirmação, um aviso de que os dados ficam apenas na sessão atual e não são salvos permanentemente, e um resumo dos dados. Os valores do resumo são exibidos com `st.text`, para que símbolos de formatação digitados pelo usuário não sejam interpretados como markdown. Não há persistência definitiva.
+
+Ao clicar em "← Voltar ao início", os dados da avaliação atual são descartados: `st.session_state["nova_auditoria"]` é removido e o formulário volta vazio na próxima visita. Para limpar os campos, o nome do formulário e das chaves (`key`) dos campos inclui um número de versão, guardado em `st.session_state["nova_auditoria_versao"]`, que aumenta a cada descarte; na visita seguinte o Streamlit cria campos novos, com valores vazios. Essa estratégia foi escolhida no lugar de apagar o valor dos campos existentes, por não depender de onde o Streamlit guarda esse valor (servidor ou navegador) nem escrever em estado de widgets já criados. O descarte vale somente para o botão "Voltar ao início": sair pelo menu lateral, pelo botão voltar do navegador ou pelo botão "Nova Auditoria" da Home não limpa os dados.
+
 ### Lista de processos
 
 Nesta etapa, o único processo disponível (Gestão de Mudanças) é uma constante simples dentro de `pages/1_nova_auditoria.py`. Não foi criado um modelo de domínio em `models/`, porque ainda não há atributos ou regras definidos que justifiquem isso. A decisão deve ser revista quando a biblioteca de controles precisar associar controles a processos.
@@ -128,11 +141,11 @@ Nenhum problema conhecido registrado no momento.
 
 ## 10. Última atualização
 
-Data: 06/10/2026
+Data: 13/10/2026
 
 **Último commit no repositório:**
 
-`a74c2c4 docs: atualizar contexto e changelog do AR-08`
+`548fbc7 feat: validar formulário de nova auditoria`
 
 A Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foi implementada, commitada e enviada ao repositório remoto.
 
@@ -147,6 +160,8 @@ A tarefa AR-09 (primeiro deploy no Streamlit Community Cloud) foi executada com 
 URL pública da aplicação:
 
 `https://audit-readiness-ai-xvskt2cm2b6exsv2v6bjx.streamlit.app/`
+
+A tarefa AR11 (formulário de nova avaliação com validação, resumo e descarte dos dados ao voltar ao início) foi implementada, testada manualmente pela desenvolvedora, commitada (`548fbc7`) e enviada ao repositório remoto. O commit no GitHub não confirma que o deploy publicado foi atualizado; ainda não há registro de que a aplicação publicada contenha a AR11.
 
 ---
 
