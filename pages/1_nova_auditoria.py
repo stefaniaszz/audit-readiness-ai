@@ -91,8 +91,17 @@ if enviado:
     if not nome_avaliacao:
         erros.append("Informe o nome da avaliação.")
 
-    # As datas são opcionais; a ordem só é verificada se as duas foram preenchidas.
-    if data_inicial and data_final and data_inicial > data_final:
+   
+    # As duas datas são obrigatórias.
+    if data_inicial is None:
+        erros.append("Informe a data inicial.")
+
+    if data_final is None:
+        erros.append("Informe a data final.")
+
+    # A ordem só é comparada quando as duas datas foram preenchidas.
+    # Datas iguais são permitidas: só é erro quando a inicial vem DEPOIS da final.
+    if data_inicial is not None and data_final is not None and data_inicial > data_final:
         erros.append("A data inicial não pode ser posterior à data final.")
 
     if erros:
@@ -113,13 +122,6 @@ if enviado:
         }
 
         st.success("Dados da avaliação recebidos com sucesso.")
-        st.info(
-            "Os dados permanecem apenas na sessão atual e não foram salvos "
-            "permanentemente. Se você recarregar ou fechar a página, "
-            "eles serão perdidos."
-        )
-
-        st.subheader("Resumo dos dados enviados")
 
         # Datas no formato brasileiro; campos vazios aparecem como "Não informado".
         resumo = [
