@@ -72,11 +72,11 @@ https://audit-readiness-ai-xvskt2cm2b6exsv2v6vbjx.streamlit.app/
 
 **Em desenvolvimento.**
 
-O projeto está atualmente em sua fase inicial de desenvolvimento (**Sprint 1**).
+O projeto está atualmente em sua fase inicial de desenvolvimento (**Sprint 2**).
 
 As funcionalidades serão implementadas gradualmente conforme o desenvolvimento avançar.
 
-Neste momento, a aplicação possui a estrutura inicial, navegação principal, formulário de Nova Auditoria e páginas provisórias para Resultado, Simulador Auditor e Configurações.
+Neste momento, a aplicação possui a estrutura inicial, navegação principal, formulário de Nova Auditoria (com validação dos dados e resumo do envio, apenas na sessão atual) e páginas provisórias para Resultado, Simulador Auditor e Configurações.
 
 A integração com Inteligência Artificial ainda não foi implementada nesta etapa.
 

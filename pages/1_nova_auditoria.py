@@ -73,7 +73,12 @@ with st.form(f"form_nova_auditoria_{versao}"):
     st.subheader("Contexto da avaliação")
 
     # Objetivo, escopo e descrição são opcionais.
-    objetivo = st.text_area("Objetivo", key=f"objetivo_{versao}")
+    # O objetivo explica o propósito da avaliação e os resultados esperados;
+    # o texto é guardado na chave "objetivo" (veja o dicionário mais abaixo).
+    objetivo = st.text_area("Objetivo da avaliação", key=f"objetivo_{versao}")
+    st.caption(
+        "Descreva o propósito da avaliação e os resultados esperados."
+    )
 
     escopo = st.text_area("Escopo", key=f"escopo_{versao}")
 
@@ -122,6 +127,13 @@ if enviado:
         }
 
         st.success("Dados da avaliação recebidos com sucesso.")
+        st.info(
+            "Os dados permanecem apenas na sessão atual e não foram salvos "
+            "permanentemente. Se você recarregar ou fechar a página, "
+            "eles serão perdidos."
+        )
+
+        st.subheader("Resumo dos dados enviados")
 
         # Datas no formato brasileiro; campos vazios aparecem como "Não informado".
         resumo = [
@@ -135,7 +147,7 @@ if enviado:
                 "Data final",
                 data_final.strftime("%d/%m/%Y") if data_final else "Não informada",
             ),
-            ("Objetivo", objetivo.strip() or "Não informado"),
+            ("Objetivo da avaliação", objetivo.strip() or "Não informado"),
             ("Escopo", escopo.strip() or "Não informado"),
             ("Descrição do processo", descricao_processo.strip() or "Não informada"),
         ]

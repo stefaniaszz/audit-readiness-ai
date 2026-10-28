@@ -90,7 +90,7 @@ Commit: `32dd9ad`
 - Realizados testes da Home e das páginas de Nova Auditoria, Resultado, Simulador Auditor e Configurações.
 - Todas as páginas foram carregadas e utilizadas sem erros.
 - Não foram necessárias alterações no código da aplicação ou inclusão de novas dependências para realizar o deploy.
-- URL pública: `https://audit-readiness-ai-xvskt2cm2b6exsv2v6bjx.streamlit.app/`.
+- URL pública: `https://audit-readiness-ai-xvskt2cm2b6exsv2v6vbjx.streamlit.app/`.
 
 ---
 
@@ -110,6 +110,32 @@ Commit: `548fbc7` (`feat: validar formulário de nova auditoria`)
 - Testado manualmente pela desenvolvedora no VS Code; todos os testes realizados passaram.
 - Sem persistência definitiva e sem funcionalidades de IA.
 - O commit foi enviado ao GitHub, mas ainda não há registro de que a aplicação publicada no Streamlit Community Cloud tenha sido atualizada com esta alteração.
+
+---
+
+## 2026-10-27 — Datas obrigatórias na Nova Auditoria (AR13)
+
+Commit: `e05efc7` (`feat: validar datas da nova auditoria`)
+
+- Em `pages/1_nova_auditoria.py`, a data inicial e a data final passaram a ser obrigatórias: cada data não preenchida gera a sua própria mensagem de erro ("Informe a data inicial." / "Informe a data final.").
+- A regra de ordem foi mantida: a data inicial não pode ser posterior à data final (datas iguais são permitidas), verificada somente quando as duas datas foram informadas.
+- Os dados continuam sendo gravados em `st.session_state["nova_auditoria"]` somente depois que todas as validações passam. Objetivo, escopo e descrição do processo continuam opcionais.
+- Esse commit removeu, sem intenção, dois elementos da AR11 (o aviso de que os dados ficam apenas na sessão atual e o subtítulo "Resumo dos dados enviados"); eles foram restaurados na alteração da AR14, descrita abaixo.
+- Alteração restrita a `pages/1_nova_auditoria.py`. Sem novas dependências e sem persistência definitiva.
+
+---
+
+## 2026-10-28 — Campo "Objetivo da avaliação" (AR14)
+
+Commit: pendente (alterações ainda não commitadas)
+
+- Em `pages/1_nova_auditoria.py`, o campo "Objetivo" passou a se chamar "Objetivo da avaliação" e ganhou uma orientação curta logo abaixo (`st.caption`): "Descreva o propósito da avaliação e os resultados esperados."
+- O campo continua opcional e continua guardado na chave `objetivo` do dicionário já existente em `st.session_state["nova_auditoria"]` (nenhuma estrutura nova). No resumo após o envio, aparece como "Objetivo da avaliação" (ou "Não informado", se vazio).
+- Restaurados os dois elementos da AR11 removidos sem intenção pelo commit `e05efc7`: o aviso `st.info` de que os dados ficam apenas na sessão atual e o subtítulo "Resumo dos dados enviados".
+- As validações da AR13 (nome e datas obrigatórias, ordem das datas) foram preservadas.
+- Alteração restrita a `pages/1_nova_auditoria.py`; `app.py`, `requirements.txt` e as demais páginas não foram alterados. Sem novas dependências, sem banco de dados e sem persistência definitiva.
+- Verificações realizadas em 28/10/2026: verificação de sintaxe (`py_compile`), simulação da interface com `streamlit.testing.v1.AppTest` (envio vazio, nome só com espaços, data ausente, ordem inválida, datas iguais, envio válido, resumo, descarte ao voltar ao início, abertura das demais páginas) e subida do servidor Streamlit com resposta de saúde HTTP 200. O ambiente usado foi Python 3.13 com Streamlit 1.64.0. Não há testes automatizados (`pytest`) no repositório. Validação manual no navegador pela desenvolvedora (28/10/2026): a AR14 foi testada e funcionou.
+- As alterações da AR14 ainda não foram commitadas nem enviadas ao GitHub. O commit da AR13 (`e05efc7`) já está no GitHub (branch `master`), mas não há registro de que a aplicação publicada no Streamlit Community Cloud contenha as alterações da AR13 e da AR14.
 
 ---
 
