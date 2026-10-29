@@ -86,6 +86,10 @@ with st.form(f"form_nova_auditoria_{versao}"):
     )
 
     descricao_processo = st.text_area("Descrição do processo", key=f"descricao_processo_{versao}")
+    st.caption(
+        "Descreva como o processo funciona atualmente, incluindo as principais "
+        "atividades, as responsabilidades e os controles existentes."
+    )
 
     enviado = st.form_submit_button("Enviar dados")
 

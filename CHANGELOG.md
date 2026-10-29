@@ -141,7 +141,7 @@ Commit: `e31d9cb` (`feat: melhorar identificação do objetivo da avaliação`)
 
 ## 2026-10-28 — Campo "Escopo da avaliação" (AR15)
 
-Commit: pendente (alterações ainda não commitadas)
+Commit: `1edd2a5` (`feat: melhorar identificação do escopo da avaliação`)
 
 - Em `pages/1_nova_auditoria.py`, o campo "Escopo" passou a se chamar "Escopo da avaliação" e ganhou uma orientação curta (`st.caption`): "Delimite os processos, controles, áreas ou unidades incluídos na avaliação."
 - O campo permanece opcional e mantém a chave `escopo` no dicionário `st.session_state["nova_auditoria"]` (nenhuma estrutura nova).
@@ -150,7 +150,21 @@ Commit: pendente (alterações ainda não commitadas)
 - Alteração de código restrita a `pages/1_nova_auditoria.py`. Sem novas dependências, persistência definitiva ou mudanças na estrutura do projeto.
 - Verificações realizadas em 28/10/2026: verificação de sintaxe (`py_compile`), simulação da interface com `streamlit.testing.v1.AppTest` (campos e orientações, escopo guardado na chave `escopo`, exibição literal e "Não informado" no resumo, validações de nome e datas, descarte ao voltar ao início, abertura das demais páginas) e subida do servidor Streamlit com resposta de saúde HTTP 200. Não há testes automatizados (`pytest`) no repositório.
 - Validação manual no navegador pela desenvolvedora (28/10/2026): a AR15 foi testada e funcionou.
-- As alterações da AR15 ainda não foram commitadas nem enviadas ao GitHub.
+- O commit da AR15 (`1edd2a5`) foi criado localmente e, até este registro, ainda não foi enviado ao GitHub: `origin/master` permanecia em `e31d9cb`.
+
+---
+
+## 2026-10-28 — Orientação do campo "Descrição do processo" (AR16)
+
+Commit: pendente (alterações ainda não commitadas)
+
+- Em `pages/1_nova_auditoria.py`, o campo existente "Descrição do processo" ganhou uma orientação curta logo abaixo (`st.caption`): "Descreva como o processo funciona atualmente, incluindo as principais atividades, as responsabilidades e os controles existentes."
+- O campo permanece opcional, sem novas validações nem novos campos, e mantém a chave `descricao_processo` no dicionário `st.session_state["nova_auditoria"]` (nenhuma estrutura nova). O rótulo e o resumo ("Descrição do processo" ou "Não informada", se vazio) não foram alterados.
+- Preservadas as validações de nome e datas (AR11/AR13), as orientações dos campos "Objetivo da avaliação" (AR14) e "Escopo da avaliação" (AR15), a confirmação, o aviso de armazenamento na sessão e o subtítulo do resumo.
+- Alteração de código restrita a `pages/1_nova_auditoria.py`. Sem novas dependências, persistência definitiva ou análises. O texto informado apenas fica disponível na sessão para análises futuras, que não fazem parte desta tarefa.
+- Verificações realizadas em 28/10/2026: verificação de sintaxe (`py_compile`), simulação da interface com `streamlit.testing.v1.AppTest` (22 verificações: orientação exibida com o texto exato, texto guardado na chave `descricao_processo`, exibição literal no resumo, "Não informada" quando vazio, validações de nome e datas, aviso de sessão e subtítulo do resumo, abertura das demais páginas), fluxo Home, Nova Auditoria, envio, "Voltar ao início" e reabertura com campos vazios, e subida do servidor Streamlit com resposta de saúde HTTP 200. Não há testes automatizados (`pytest`) no repositório.
+- Validação manual no navegador pela desenvolvedora (28/10/2026): a AR16 foi testada e funcionou.
+- As alterações da AR16 ainda não foram commitadas nem enviadas ao GitHub.
 
 ---
 
