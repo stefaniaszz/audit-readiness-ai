@@ -5,6 +5,8 @@
 
 import streamlit as st
 
+from models.avaliacao import Avaliacao
+
 # Neste MVP, o único processo disponível é Gestão de Mudanças.
 PROCESSOS_DISPONIVEIS = ["Gestão de Mudanças (Change Management)"]
 
@@ -123,15 +125,19 @@ if enviado:
     else:
         # Só chegamos aqui se todas as validações passaram.
         # st.session_state guarda os dados enquanto a sessão estiver aberta.
-        st.session_state["nova_auditoria"] = {
-            "nome_avaliacao": nome_avaliacao,
-            "processo": processo,
-            "data_inicial": data_inicial,
-            "data_final": data_final,
-            "objetivo": objetivo,
-            "escopo": escopo,
-            "descricao_processo": descricao_processo,
-        }
+        # O modelo Avaliacao (models/avaliacao.py) centraliza os dados da avaliação.
+        # O dicionário guardado tem as mesmas chaves de antes, mais
+        # "controles_selecionados" (vazio: ainda não há seleção de controles).
+        avaliacao = Avaliacao(
+            nome_avaliacao=nome_avaliacao,
+            processo=processo,
+            data_inicial=data_inicial,
+            data_final=data_final,
+            objetivo=objetivo,
+            escopo=escopo,
+            descricao_processo=descricao_processo,
+        )
+        st.session_state["nova_auditoria"] = avaliacao.para_dicionario()
 
         st.success("Dados da avaliação recebidos com sucesso.")
         st.info(

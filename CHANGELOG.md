@@ -150,13 +150,13 @@ Commit: `1edd2a5` (`feat: melhorar identificação do escopo da avaliação`)
 - Alteração de código restrita a `pages/1_nova_auditoria.py`. Sem novas dependências, persistência definitiva ou mudanças na estrutura do projeto.
 - Verificações realizadas em 28/10/2026: verificação de sintaxe (`py_compile`), simulação da interface com `streamlit.testing.v1.AppTest` (campos e orientações, escopo guardado na chave `escopo`, exibição literal e "Não informado" no resumo, validações de nome e datas, descarte ao voltar ao início, abertura das demais páginas) e subida do servidor Streamlit com resposta de saúde HTTP 200. Não há testes automatizados (`pytest`) no repositório.
 - Validação manual no navegador pela desenvolvedora (28/10/2026): a AR15 foi testada e funcionou.
-- O commit da AR15 (`1edd2a5`) foi criado localmente e, até este registro, ainda não foi enviado ao GitHub: `origin/master` permanecia em `e31d9cb`.
+- O commit da AR15 (`1edd2a5`) foi enviado ao GitHub (branch `master`).
 
 ---
 
 ## 2026-10-28 — Orientação do campo "Descrição do processo" (AR16)
 
-Commit: pendente (alterações ainda não commitadas)
+Commit: `7528282` (`feat: orientar preenchimento da descrição do processo`)
 
 - Em `pages/1_nova_auditoria.py`, o campo existente "Descrição do processo" ganhou uma orientação curta logo abaixo (`st.caption`): "Descreva como o processo funciona atualmente, incluindo as principais atividades, as responsabilidades e os controles existentes."
 - O campo permanece opcional, sem novas validações nem novos campos, e mantém a chave `descricao_processo` no dicionário `st.session_state["nova_auditoria"]` (nenhuma estrutura nova). O rótulo e o resumo ("Descrição do processo" ou "Não informada", se vazio) não foram alterados.
@@ -164,7 +164,24 @@ Commit: pendente (alterações ainda não commitadas)
 - Alteração de código restrita a `pages/1_nova_auditoria.py`. Sem novas dependências, persistência definitiva ou análises. O texto informado apenas fica disponível na sessão para análises futuras, que não fazem parte desta tarefa.
 - Verificações realizadas em 28/10/2026: verificação de sintaxe (`py_compile`), simulação da interface com `streamlit.testing.v1.AppTest` (22 verificações: orientação exibida com o texto exato, texto guardado na chave `descricao_processo`, exibição literal no resumo, "Não informada" quando vazio, validações de nome e datas, aviso de sessão e subtítulo do resumo, abertura das demais páginas), fluxo Home, Nova Auditoria, envio, "Voltar ao início" e reabertura com campos vazios, e subida do servidor Streamlit com resposta de saúde HTTP 200. Não há testes automatizados (`pytest`) no repositório.
 - Validação manual no navegador pela desenvolvedora (28/10/2026): a AR16 foi testada e funcionou.
-- As alterações da AR16 ainda não foram commitadas nem enviadas ao GitHub.
+- O commit da AR16 (`7528282`) foi enviado ao GitHub (branch `master`).
+
+---
+
+## 2026-10-28 — Modelo de dados da avaliação (AR17)
+
+Commit: pendente (alterações ainda não commitadas)
+
+- Criado `models/avaliacao.py` com a classe `Avaliacao`, um `dataclass` imutável (biblioteca padrão, sem novas dependências) que reúne os dados da avaliação: `nome_avaliacao`, `processo`, `data_inicial`, `data_final`, `objetivo`, `escopo`, `descricao_processo` e `controles_selecionados`. Os nomes são os mesmos já usados em `st.session_state["nova_auditoria"]`.
+- Obrigatórios (mesmas regras do formulário): nome (texto não vazio; só espaços conta como vazio), processo (texto não vazio) e as duas datas (tipo `date`; a inicial não pode ser posterior à final; datas iguais permitidas). Opcionais, com padrão vazio: objetivo, escopo, descrição do processo e controles selecionados. Dados inválidos geram `ValueError`.
+- `controles_selecionados` é uma tupla de textos (identificadores). Ainda não existem biblioteca de controles nem seleção na interface, e nada disso foi criado: o campo fica sempre vazio por enquanto, e seu tipo poderá ser revisto quando a biblioteca existir.
+- `para_dicionario()` gera o dicionário no formato do formulário, mais `controles_selecionados` (lista vazia); `de_dicionario()` faz o caminho inverso e aceita o dicionário antigo, sem essa chave.
+- Em `pages/1_nova_auditoria.py`, adicionados o import de `Avaliacao` e, no envio válido, a criação do objeto e a gravação de `avaliacao.para_dicionario()` na mesma chave `st.session_state["nova_auditoria"]`. Campos, validações, mensagens, resumo e demais comportamentos foram preservados; não houve mudança visual na interface.
+- Criado `test_cases/test_avaliacao.py` com 18 testes `unittest` (criação e campos, obrigatórios, opcionais, tipos, compatibilidade com o dicionário do formulário).
+- Atualizados `PROJECT_CONTEXT.md` e `CHANGELOG.md`; corrigido o estado das AR15 e AR16, que já estão commitadas (`1edd2a5` e `7528282`) e enviadas ao GitHub.
+- Verificações realizadas em 28/10/2026 no ambiente de desenvolvimento do Claude (Python 3.13 e Streamlit 1.64.0): `py_compile` dos arquivos `.py`; `python -m unittest test_cases.test_avaliacao -v` (18 testes, todos aprovados); simulação da interface com `streamlit.testing.v1.AppTest` (22 de 22 verificações aprovadas; a verificação das chaves do dicionário foi atualizada para incluir `controles_selecionados`) e fluxo Home, Nova Auditoria, envio, "Voltar ao início" e reabertura; subida do servidor Streamlit com resposta de saúde HTTP 200 e um envio válido em navegador automatizado (Playwright), confirmando que o import funciona na página. Não foi usado `pytest`.
+- Ainda não validada manualmente no navegador pela desenvolvedora e não commitada nem enviada ao GitHub.
+- Limitações: sem biblioteca de controles, seleção de controles na interface, banco de dados, persistência definitiva ou análise por IA, que dependem de tarefas futuras. Os dados continuam apenas na sessão atual, e o restante da página ainda lê o dicionário, não o objeto.
 
 ---
 
