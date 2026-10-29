@@ -80,7 +80,10 @@ with st.form(f"form_nova_auditoria_{versao}"):
         "Descreva o propósito da avaliação e os resultados esperados."
     )
 
-    escopo = st.text_area("Escopo", key=f"escopo_{versao}")
+    escopo = st.text_area("Escopo da avaliação", key=f"escopo_{versao}")
+    st.caption(
+        "Delimite os processos, controles, áreas ou unidades incluídos na avaliação."
+    )
 
     descricao_processo = st.text_area("Descrição do processo", key=f"descricao_processo_{versao}")
 
@@ -148,7 +151,7 @@ if enviado:
                 data_final.strftime("%d/%m/%Y") if data_final else "Não informada",
             ),
             ("Objetivo da avaliação", objetivo.strip() or "Não informado"),
-            ("Escopo", escopo.strip() or "Não informado"),
+            ("Escopo da avaliação", escopo.strip() or "Não informado"),
             ("Descrição do processo", descricao_processo.strip() or "Não informada"),
         ]
 

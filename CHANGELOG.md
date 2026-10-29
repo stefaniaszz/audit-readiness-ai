@@ -127,7 +127,7 @@ Commit: `e05efc7` (`feat: validar datas da nova auditoria`)
 
 ## 2026-10-28 — Campo "Objetivo da avaliação" (AR14)
 
-Commit: pendente (alterações ainda não commitadas)
+Commit: `e31d9cb` (`feat: melhorar identificação do objetivo da avaliação`)
 
 - Em `pages/1_nova_auditoria.py`, o campo "Objetivo" passou a se chamar "Objetivo da avaliação" e ganhou uma orientação curta logo abaixo (`st.caption`): "Descreva o propósito da avaliação e os resultados esperados."
 - O campo continua opcional e continua guardado na chave `objetivo` do dicionário já existente em `st.session_state["nova_auditoria"]` (nenhuma estrutura nova). No resumo após o envio, aparece como "Objetivo da avaliação" (ou "Não informado", se vazio).
@@ -135,7 +135,22 @@ Commit: pendente (alterações ainda não commitadas)
 - As validações da AR13 (nome e datas obrigatórias, ordem das datas) foram preservadas.
 - Alteração restrita a `pages/1_nova_auditoria.py`; `app.py`, `requirements.txt` e as demais páginas não foram alterados. Sem novas dependências, sem banco de dados e sem persistência definitiva.
 - Verificações realizadas em 28/10/2026: verificação de sintaxe (`py_compile`), simulação da interface com `streamlit.testing.v1.AppTest` (envio vazio, nome só com espaços, data ausente, ordem inválida, datas iguais, envio válido, resumo, descarte ao voltar ao início, abertura das demais páginas) e subida do servidor Streamlit com resposta de saúde HTTP 200. O ambiente usado foi Python 3.13 com Streamlit 1.64.0. Não há testes automatizados (`pytest`) no repositório. Validação manual no navegador pela desenvolvedora (28/10/2026): a AR14 foi testada e funcionou.
-- As alterações da AR14 ainda não foram commitadas nem enviadas ao GitHub. O commit da AR13 (`e05efc7`) já está no GitHub (branch `master`), mas não há registro de que a aplicação publicada no Streamlit Community Cloud contenha as alterações da AR13 e da AR14.
+- O commit da AR14 (`e31d9cb`) foi enviado ao GitHub (branch `master`), assim como o da AR13 (`e05efc7`), mas não há registro de que a aplicação publicada no Streamlit Community Cloud contenha as alterações da AR13 e da AR14.
+
+---
+
+## 2026-10-28 — Campo "Escopo da avaliação" (AR15)
+
+Commit: pendente (alterações ainda não commitadas)
+
+- Em `pages/1_nova_auditoria.py`, o campo "Escopo" passou a se chamar "Escopo da avaliação" e ganhou uma orientação curta (`st.caption`): "Delimite os processos, controles, áreas ou unidades incluídos na avaliação."
+- O campo permanece opcional e mantém a chave `escopo` no dicionário `st.session_state["nova_auditoria"]` (nenhuma estrutura nova).
+- O resumo dos dados enviados identifica o campo como "Escopo da avaliação" e exibe "Não informado" quando vazio.
+- Preservadas as validações de nome e período (AR11/AR13), o campo "Objetivo da avaliação" e sua orientação (AR14), a confirmação, o aviso de armazenamento na sessão e o subtítulo do resumo.
+- Alteração de código restrita a `pages/1_nova_auditoria.py`. Sem novas dependências, persistência definitiva ou mudanças na estrutura do projeto.
+- Verificações realizadas em 28/10/2026: verificação de sintaxe (`py_compile`), simulação da interface com `streamlit.testing.v1.AppTest` (campos e orientações, escopo guardado na chave `escopo`, exibição literal e "Não informado" no resumo, validações de nome e datas, descarte ao voltar ao início, abertura das demais páginas) e subida do servidor Streamlit com resposta de saúde HTTP 200. Não há testes automatizados (`pytest`) no repositório.
+- Validação manual no navegador pela desenvolvedora (28/10/2026): a AR15 foi testada e funcionou.
+- As alterações da AR15 ainda não foram commitadas nem enviadas ao GitHub.
 
 ---
 

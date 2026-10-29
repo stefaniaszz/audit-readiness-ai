@@ -24,7 +24,9 @@ A AR11 (formulário de nova avaliação com validação, resumo e descarte dos d
 
 A AR13 (datas inicial e final obrigatórias) foi commitada (`e05efc7`). Esse commit removeu, sem intenção, o aviso de sessão e o subtítulo "Resumo dos dados enviados" da AR11.
 
-A AR14 (campo "Objetivo da avaliação", com orientação curta, mantido no resumo e na estrutura de dados existente) e a restauração desses dois elementos da AR11 estão implementadas em `pages/1_nova_auditoria.py` e foram validadas manualmente no navegador pela desenvolvedora (funcionou), mas ainda não foram commitadas. Não há registro de que a aplicação publicada contenha a AR13 ou a AR14.
+A AR14 (campo "Objetivo da avaliação", com orientação curta, mantido no resumo e na estrutura de dados existente) e a restauração desses dois elementos da AR11 estão implementadas em `pages/1_nova_auditoria.py` e foram validadas manualmente no navegador pela desenvolvedora (funcionou), commitadas (`e31d9cb`) e enviadas ao GitHub.
+
+A AR15 (campo "Escopo da avaliação") está implementada em `pages/1_nova_auditoria.py` e foi validada manualmente no navegador pela desenvolvedora (funcionou), mas ainda não foi commitada. Não há registro de que a aplicação publicada contenha a AR13, a AR14 ou a AR15.
 
 Os dados informados no formulário de Nova Auditoria permanecem apenas na sessão atual: ainda não há persistência definitiva.
 
@@ -74,7 +76,8 @@ As pastas ainda vazias contêm apenas `.gitkeep`.
 - [x] Formulário de Nova Auditoria completo conforme a especificação (Nome da avaliação, Processo, Período avaliado, Objetivo, Escopo e Descrição do processo); os valores ficam apenas na sessão
 - [x] Validação e resumo do formulário de Nova Auditoria (AR11): seções Identificação, Período avaliado e Contexto da avaliação; nome da avaliação obrigatório; na época da AR11, as datas ainda eram opcionais e a ordem (data inicial não posterior à data final) só era verificada quando as duas eram informadas, regra substituída pela AR13 (próximo item: as duas datas obrigatórias, data final não anterior à inicial e datas iguais permitidas); confirmação e resumo dos dados após envio válido; dados gravados em `st.session_state["nova_auditoria"]` somente após a validação, apenas na sessão atual e sem persistência definitiva; descarte dos dados e limpeza do formulário ao clicar em "← Voltar ao início" (commit `548fbc7`; testado manualmente pela desenvolvedora)
 - [x] Datas obrigatórias na Nova Auditoria (AR13): data inicial e data final passaram a ser obrigatórias, cada uma com mensagem de erro própria; a regra de ordem foi mantida (commit `e05efc7`)
-- [ ] Campo "Objetivo da avaliação" (AR14), com orientação curta, opcional, exibido no resumo e guardado na chave `objetivo` da estrutura existente; inclui a restauração do aviso de sessão e do subtítulo "Resumo dos dados enviados" da AR11 (implementado e validado manualmente pela desenvolvedora; ainda não commitado)
+- [x] Campo "Objetivo da avaliação" (AR14), com orientação curta, opcional, exibido no resumo e guardado na chave `objetivo` da estrutura existente; inclui a restauração do aviso de sessão e do subtítulo "Resumo dos dados enviados" da AR11 (implementado e validado manualmente pela desenvolvedora; commit `e31d9cb`, enviado ao GitHub)
+- [ ] Campo "Escopo da avaliação" (AR15): campo opcional com rótulo e orientação, mantido na chave `escopo` e apresentado no resumo (implementado em `pages/1_nova_auditoria.py`; verificado com simulação da interface e validado manualmente pela desenvolvedora; ainda não commitado)
 - [x] Navegação principal (AR-07): menu lateral do Streamlit com Nova Auditoria, Resultado, Simular Auditor e Configurações
 - [x] Páginas provisórias `2_resultado.py`, `3_simulador_auditor.py` e `4_configuracoes.py` (apenas título e aviso de desenvolvimento)
 - [x] Home da aplicação (AR-08), com identificação do sistema, descrição do propósito e acesso à Nova Auditoria
@@ -87,7 +90,7 @@ As pastas ainda vazias contêm apenas `.gitkeep`.
 
 ## 6. Em desenvolvimento
 
-A AR14 está implementada em `pages/1_nova_auditoria.py`, validada manualmente pela desenvolvedora, aguardando revisão e commit (não commitada). A AR11 e a AR13 estão concluídas e commitadas.
+A AR15 (campo "Escopo da avaliação") está implementada em `pages/1_nova_auditoria.py` e verificada com simulação da interface e validada manualmente no navegador pela desenvolvedora (funcionou), mas ainda não foi commitada. A AR14 está concluída, commitada (`e31d9cb`) e enviada ao GitHub. A AR11 e a AR13 estão concluídas e commitadas.
 
 Ainda não implementados: biblioteca de controles e criticidade, itens listados no escopo original da Sprint 1. Também não existem funcionalidades de inteligência artificial nem persistência definitiva dos dados.
 
@@ -123,7 +126,7 @@ Para definir nomes de menu personalizados, com acentos e letras maiúsculas, ser
 
 ### Formulário de Nova Auditoria
 
-O formulário usa `st.form`, organizado nas seções Identificação, Período avaliado e Contexto da avaliação. A validação ocorre ao clicar em "Enviar dados": o nome da avaliação é obrigatório (um nome só com espaços é considerado vazio); as duas datas são obrigatórias, regra introduzida pela AR13 (na AR11 eram opcionais), cada uma com mensagem própria; a data inicial não pode ser posterior à data final, sendo permitidas datas iguais. O objetivo, o escopo e a descrição do processo são opcionais. O campo "Objetivo da avaliação" tem uma orientação curta abaixo dele e é guardado na chave `objetivo`. Cada erro de validação tem uma mensagem específica.
+O formulário usa `st.form`, organizado nas seções Identificação, Período avaliado e Contexto da avaliação. A validação ocorre ao clicar em "Enviar dados": o nome da avaliação é obrigatório (um nome só com espaços é considerado vazio); as duas datas são obrigatórias, regra introduzida pela AR13 (na AR11 eram opcionais), cada uma com mensagem própria; a data inicial não pode ser posterior à data final, sendo permitidas datas iguais. O objetivo, o escopo e a descrição do processo são opcionais. Os campos "Objetivo da avaliação" e "Escopo da avaliação" têm orientações curtas e são guardados nas chaves `objetivo` e `escopo`, respectivamente. Cada erro de validação tem uma mensagem específica.
 
 Os dados são gravados em `st.session_state["nova_auditoria"]` somente depois que todas as validações passam; um envio inválido não altera dados já gravados. Após um envio válido, a página mostra a confirmação, um aviso de que os dados ficam apenas na sessão atual e não são salvos permanentemente, e um resumo dos dados. Os valores do resumo são exibidos com `st.text`, para que símbolos de formatação digitados pelo usuário não sejam interpretados como markdown. Não há persistência definitiva.
 
@@ -151,7 +154,7 @@ Data: 28/10/2026
 
 **Último commit no repositório:**
 
-`e05efc7 feat: validar datas da nova auditoria`
+`e31d9cb feat: melhorar identificação do objetivo da avaliação` (enviado ao GitHub; `origin/master` está em `e31d9cb`)
 
 A Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foi implementada, commitada e enviada ao repositório remoto.
 
@@ -171,7 +174,9 @@ A tarefa AR11 (formulário de nova avaliação com validação, resumo e descart
 
 A tarefa AR13 (datas obrigatórias) foi implementada e commitada (`e05efc7`).
 
-A tarefa AR14 (campo "Objetivo da avaliação" e restauração do aviso de sessão e do subtítulo do resumo, removidos sem intenção pelo commit `e05efc7`) foi implementada em `pages/1_nova_auditoria.py` e verificada com simulação da interface (AppTest), mas **ainda não foi commitada**. Validada manualmente no navegador pela desenvolvedora em 28/10/2026 (funcionou).
+A tarefa AR14 (campo "Objetivo da avaliação" e restauração do aviso de sessão e do subtítulo do resumo, removidos sem intenção pelo commit `e05efc7`) foi implementada em `pages/1_nova_auditoria.py`, verificada com simulação da interface (AppTest), validada manualmente no navegador pela desenvolvedora em 28/10/2026 (funcionou), commitada (`e31d9cb`) e enviada ao GitHub.
+
+A AR15 (campo opcional "Escopo da avaliação", com orientação, chave `escopo` e inclusão no resumo) foi implementada em `pages/1_nova_auditoria.py` e verificada com simulação da interface (AppTest) e validada manualmente no navegador pela desenvolvedora em 28/10/2026 (funcionou), mas **ainda não foi commitada**.
 
 ---
 
