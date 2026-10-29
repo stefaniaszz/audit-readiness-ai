@@ -30,7 +30,9 @@ A AR15 (campo "Escopo da avaliação") está implementada em `pages/1_nova_audit
 
 A AR16 (orientação do campo "Descrição do processo") está implementada em `pages/1_nova_auditoria.py`, verificada com simulação da interface e validada manualmente no navegador pela desenvolvedora (funcionou), commitada (`7528282`) e enviada ao GitHub. Não há registro de que a aplicação publicada contenha a AR13, a AR14, a AR15 ou a AR16.
 
-A AR17 (modelo de dados `Avaliacao`, em `models/avaliacao.py`) está implementada e integrada ao envio do formulário de Nova Auditoria. Foi verificada com testes automatizados (`unittest`) e com simulação da interface, mas **ainda não foi validada manualmente no navegador pela desenvolvedora nem commitada**.
+A AR17 (modelo de dados `Avaliacao`, em `models/avaliacao.py`) está implementada e integrada ao envio do formulário de Nova Auditoria. Foi verificada com testes automatizados (`unittest`) e com simulação da interface, validada localmente pela desenvolvedora antes do commit, commitada (`467c5e8`, `feat: criar modelo de dados da avaliação de auditoria`) e enviada à branch `master` do GitHub.
+
+A AR18 (modelo de dados `Controle`, em `models/controle.py`) está implementada e testada com `unittest`, mas **não está integrada a nenhuma página** e **ainda não foi commitada**. Não existem biblioteca de controles, associação entre avaliações e controles, interface para controles, banco de dados nem análise por IA.
 
 Os dados informados no formulário de Nova Auditoria permanecem apenas na sessão atual: ainda não há persistência definitiva.
 
@@ -56,10 +58,10 @@ A estrutura do projeto está organizada em diretórios para separar responsabili
 - `core/` — regras de negócio (ainda vazio)
 - `services/` — integrações e processamento (ainda vazio)
 - `prompts/` — comportamento da IA (ainda vazio)
-- `models/` — estruturas de dados; contém `avaliacao.py` (modelo `Avaliacao`, AR17)
+- `models/` — estruturas de dados; contém `avaliacao.py` (modelo `Avaliacao`, AR17) e `controle.py` (modelo `Controle`, AR18)
 - `data/` — controles e exemplos (ainda vazio)
 - `utils/` — funções auxiliares (ainda vazio)
-- `test_cases/` — testes automatizados; contém `test_avaliacao.py` (testes do modelo `Avaliacao`, AR17)
+- `test_cases/` — testes automatizados; contém `test_avaliacao.py` (AR17) e `test_controle.py` (AR18)
 - `requirements.txt` — dependências (Streamlit com versão fixada)
 
 As pastas ainda vazias contêm apenas `.gitkeep`; `models/` e `test_cases/` também mantêm o `.gitkeep`.
@@ -83,7 +85,8 @@ As pastas ainda vazias contêm apenas `.gitkeep`; `models/` e `test_cases/` tamb
 - [x] Campo "Objetivo da avaliação" (AR14), com orientação curta, opcional, exibido no resumo e guardado na chave `objetivo` da estrutura existente; inclui a restauração do aviso de sessão e do subtítulo "Resumo dos dados enviados" da AR11 (implementado e validado manualmente pela desenvolvedora; commit `e31d9cb`, enviado ao GitHub)
 - [x] Campo "Escopo da avaliação" (AR15): campo opcional com rótulo e orientação, mantido na chave `escopo` e apresentado no resumo (implementado em `pages/1_nova_auditoria.py`; verificado com simulação da interface e validado manualmente pela desenvolvedora; commit `1edd2a5`, enviado ao GitHub)
 - [x] Orientação do campo "Descrição do processo" (AR16): campo opcional mantido, com orientação sobre o funcionamento atual, as principais atividades, as responsabilidades e os controles existentes; chave `descricao_processo` e resumo preservados (implementado em `pages/1_nova_auditoria.py`; verificado com simulação da interface e validado manualmente pela desenvolvedora; commit `7528282`, enviado ao GitHub)
-- [ ] Modelo de dados da avaliação (AR17): classe `Avaliacao` em `models/avaliacao.py`, que reúne nome, processo, período, objetivo, escopo, descrição do processo e controles selecionados; usada pelo formulário ao gravar `st.session_state["nova_auditoria"]` (implementado e testado com `unittest` e simulação da interface; ainda não validado manualmente no navegador nem commitado)
+- [x] Modelo de dados da avaliação (AR17): classe `Avaliacao` em `models/avaliacao.py`, que reúne nome, processo, período, objetivo, escopo, descrição do processo e controles selecionados; usada pelo formulário ao gravar `st.session_state["nova_auditoria"]` (implementado e testado com `unittest` e simulação da interface; validado localmente pela desenvolvedora; commit `467c5e8`, enviado ao GitHub)
+- [ ] Modelo de dados do controle avaliável (AR18): classe `Controle` em `models/controle.py`, com identificador, nome, objetivo, descrição, responsável, frequência, evidências esperadas, critério de avaliação e criticidade; sem integração com a interface (implementado e testado com `unittest`; ainda não commitado)
 - [x] Navegação principal (AR-07): menu lateral do Streamlit com Nova Auditoria, Resultado, Simular Auditor e Configurações
 - [x] Páginas provisórias `2_resultado.py`, `3_simulador_auditor.py` e `4_configuracoes.py` (apenas título e aviso de desenvolvimento)
 - [x] Home da aplicação (AR-08), com identificação do sistema, descrição do propósito e acesso à Nova Auditoria
@@ -96,9 +99,9 @@ As pastas ainda vazias contêm apenas `.gitkeep`; `models/` e `test_cases/` tamb
 
 ## 6. Em desenvolvimento
 
-A AR17 (modelo de dados `Avaliacao`) está implementada em `models/avaliacao.py` e integrada a `pages/1_nova_auditoria.py`, com testes em `test_cases/test_avaliacao.py`. Ainda não foi validada manualmente no navegador pela desenvolvedora nem commitada. A AR16 está concluída, commitada (`7528282`) e enviada ao GitHub, assim como a AR15 (`1edd2a5`) e a AR14 (`e31d9cb`). A AR11 e a AR13 estão concluídas e commitadas.
+A AR18 (modelo `Controle`) está implementada em `models/controle.py`, com testes em `test_cases/test_controle.py`, e ainda não foi commitada. A AR17 (modelo de dados `Avaliacao`) está implementada em `models/avaliacao.py` e integrada a `pages/1_nova_auditoria.py`, com testes em `test_cases/test_avaliacao.py`. Está concluída, validada localmente pela desenvolvedora, commitada (`467c5e8`) e enviada ao GitHub, assim como a AR16 (`7528282`), a AR15 (`1edd2a5`) e a AR14 (`e31d9cb`). A AR11 e a AR13 estão concluídas e commitadas.
 
-Ainda não implementados: biblioteca de controles e criticidade (itens listados no escopo original da Sprint 1) e a seleção de controles na interface; por isso `controles_selecionados` do modelo `Avaliacao` fica sempre vazio por enquanto. Também não existem funcionalidades de inteligência artificial nem persistência definitiva dos dados.
+Ainda não implementados: biblioteca de controles e criticidade (itens listados no escopo original da Sprint 1), a seleção de controles na interface, a associação entre avaliações e controles e qualquer interface ou persistência de controles (o modelo `Controle` da AR18 existe, mas não é usado por nenhuma página); por isso `controles_selecionados` do modelo `Avaliacao` fica sempre vazio por enquanto. Também não existem funcionalidades de inteligência artificial nem persistência definitiva dos dados.
 
 As páginas Resultado, Simular Auditor e Configurações existem apenas como espaços provisórios; suas funcionalidades ainda não foram desenvolvidas.
 
@@ -149,6 +152,17 @@ A classe `Avaliacao` (`models/avaliacao.py`) é um `dataclass` imutável (`froze
 - `para_dicionario()` gera o dicionário no formato do formulário, mais `controles_selecionados` (lista); `de_dicionario()` faz o caminho inverso e aceita o dicionário antigo, sem essa chave.
 - O restante do código ainda lê o dicionário em `st.session_state`; migrar a página para usar o objeto diretamente não foi necessário nesta tarefa.
 
+### Modelo de dados do controle (AR18)
+
+A classe `Controle` (`models/controle.py`) segue o padrão de `Avaliacao`: `dataclass` imutável (`frozen=True`) da biblioteca padrão, validação em `__post_init__` (`ValueError`), `para_dicionario()` e `de_dicionario()`. Campos, todos obrigatórios e sem valor padrão: `identificador`, `nome`, `objetivo`, `descricao`, `responsavel`, `frequencia`, `evidencias_esperadas`, `criterio_avaliacao` e `criticidade`.
+
+- Os oito campos de texto não podem ser vazios (só espaços conta como vazio); os textos não são alterados.
+- `evidencias_esperadas` é uma tupla de textos não vazios, com ao menos uma evidência. Na entrada, só `list` e `tuple` são aceitos (e guardados como tupla); texto, bytes, dicionário, conjunto, número, `None` e qualquer outro tipo são recusados. Cada item deve ser um texto não vazio (só espaços conta como vazio).
+- `frequencia` e `criticidade` são texto livre não vazio: os requisitos ainda não definem escalas, e nenhuma foi inventada. Quando forem definidas, a validação poderá ser restringida a uma lista fechada.
+- A unicidade do identificador entre vários controles não é verificada pelo modelo (ele representa um único controle); isso caberá a quem montar a coleção de controles, em tarefa futura.
+- `para_dicionario()` gera um dicionário com os nove campos (evidências como lista); `de_dicionario()` reconstrói o controle (chave ausente gera `KeyError`; valor inválido, `ValueError`).
+- O modelo não está integrado à interface nem a `Avaliacao`: `controles_selecionados` continua sendo uma tupla de identificadores em texto, e a associação entre avaliações e controles será tratada depois, se necessário.
+
 ### Lista de processos
 
 Nesta etapa, o único processo disponível (Gestão de Mudanças) é uma constante simples dentro de `pages/1_nova_auditoria.py`, e a `Avaliacao` guarda o processo como texto. Não foi criado um modelo de domínio próprio para processos em `models/`, porque ainda não há atributos ou regras definidos que justifiquem isso. A decisão deve ser revista quando a biblioteca de controles precisar associar controles a processos.
@@ -171,7 +185,7 @@ Data: 28/10/2026
 
 **Último commit no repositório:**
 
-`7528282 feat: orientar preenchimento da descrição do processo` (enviado ao GitHub; `origin/master` em `7528282`). As alterações da AR17 descritas abaixo ainda não estão commitadas.
+`467c5e8 feat: criar modelo de dados da avaliação de auditoria` (enviado à branch `master` do GitHub). As alterações da AR18 descritas abaixo ainda não estão commitadas nem enviadas ao GitHub.
 
 A Tarefa 01 (navegação e estrutura inicial da Nova Auditoria) foi implementada, commitada e enviada ao repositório remoto.
 
@@ -197,7 +211,9 @@ A AR15 (campo opcional "Escopo da avaliação", com orientação, chave `escopo`
 
 A AR16 (orientação do campo "Descrição do processo", mantendo a chave `descricao_processo`, o campo opcional e o resumo) foi implementada em `pages/1_nova_auditoria.py`, verificada com simulação da interface (AppTest, 22 verificações) e com a subida do servidor, validada manualmente no navegador pela desenvolvedora em 28/10/2026 (funcionou), commitada (`7528282`) e enviada ao GitHub.
 
-A AR17 (modelo de dados `Avaliacao`) foi implementada em 28/10/2026: criados `models/avaliacao.py` e `test_cases/test_avaliacao.py`; modificado `pages/1_nova_auditoria.py` (apenas o import e a gravação dos dados no envio válido). Verificações realizadas: `py_compile` dos arquivos `.py`; 18 testes `unittest` (`python -m unittest test_cases.test_avaliacao -v`), todos aprovados; simulação da interface com AppTest (as mesmas 22 verificações da AR16, com a verificação das chaves do dicionário atualizada para incluir `controles_selecionados`), 22 de 22 aprovadas, e fluxo Home, Nova Auditoria, envio, "Voltar ao início" e reabertura; subida do servidor Streamlit com resposta de saúde HTTP 200 e um envio válido em navegador automatizado (Playwright), confirmando que o import `models.avaliacao` funciona na página. Essas verificações foram feitas no ambiente de desenvolvimento do Claude (não em `pytest`, que não é usado). **Ainda não foi validada manualmente no navegador pela desenvolvedora nem commitada.**
+A AR17 (modelo de dados `Avaliacao`) foi implementada em 28/10/2026: criados `models/avaliacao.py` e `test_cases/test_avaliacao.py`; modificado `pages/1_nova_auditoria.py` (apenas o import e a gravação dos dados no envio válido). Verificações realizadas: `py_compile` dos arquivos `.py`; 18 testes `unittest` (`python -m unittest test_cases.test_avaliacao -v`), todos aprovados; simulação da interface com AppTest (as mesmas 22 verificações da AR16, com a verificação das chaves do dicionário atualizada para incluir `controles_selecionados`), 22 de 22 aprovadas, e fluxo Home, Nova Auditoria, envio, "Voltar ao início" e reabertura; subida do servidor Streamlit com resposta de saúde HTTP 200 e um envio válido em navegador automatizado (Playwright), confirmando que o import `models.avaliacao` funciona na página. Essas verificações foram feitas no ambiente de desenvolvimento do Claude (não em `pytest`, que não é usado). A desenvolvedora validou a AR17 localmente antes do commit `467c5e8` (`feat: criar modelo de dados da avaliação de auditoria`), enviado à branch `master` do GitHub.
+
+A AR18 (modelo de dados `Controle`) foi implementada em 28/10/2026: criados `models/controle.py` e `test_cases/test_controle.py`; nenhum outro arquivo de código foi alterado e o modelo não foi integrado à interface. Verificações realizadas: `py_compile` dos arquivos `.py`; `python -m unittest test_cases.test_controle -v` (25 testes, todos aprovados); `python -m unittest test_cases.test_avaliacao test_cases.test_controle` (43 testes, todos aprovados, incluindo os 18 da AR17 sem alteração). Essas verificações foram feitas no ambiente de desenvolvimento do Claude. **Ainda não commitada.**
 
 ---
 

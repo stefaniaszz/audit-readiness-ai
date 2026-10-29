@@ -185,6 +185,21 @@ Commit: pendente (alterações ainda não commitadas)
 
 ---
 
+## 2026-10-28 — Modelo de dados do controle avaliável (AR18)
+
+Commit: pendente (alterações ainda não commitadas)
+
+- Criado `models/controle.py` com a classe `Controle`, um `dataclass` imutável no mesmo padrão de `Avaliacao`, com os nove campos: `identificador`, `nome`, `objetivo`, `descricao`, `responsavel`, `frequencia`, `evidencias_esperadas`, `criterio_avaliacao` e `criticidade`.
+- Validações (`ValueError`): todos os campos são obrigatórios; os oito textos não podem ser vazios nem só espaços; `evidencias_esperadas` precisa ter ao menos um item, todos textos não vazios; na entrada só `list` e `tuple` são aceitos (e guardados como tupla), e texto, bytes, dicionário, conjunto, número, `None` e outros tipos são recusados. Textos não são alterados.
+- `frequencia` e `criticidade` são texto livre não vazio, pois os requisitos ainda não definem escalas; nenhuma categoria foi inventada. A unicidade do identificador entre controles não é verificada pelo modelo.
+- `para_dicionario()` gera o dicionário com os nove campos (evidências como lista) e `de_dicionario()` reconstrói o controle; a ida e volta preserva os dados.
+- Criado `test_cases/test_controle.py` com 25 testes `unittest`: criação válida, presença e preservação dos nove campos, obrigatórios, tipos e valores inválidos, conversão para dicionário, reconstrução e ida e volta.
+- Nenhum outro arquivo de código foi alterado; o modelo não foi integrado à interface de Nova Auditoria nem a `Avaliacao`.
+- Verificações realizadas em 28/10/2026 no ambiente de desenvolvimento do Claude: `py_compile` dos arquivos `.py`; `python -m unittest test_cases.test_controle -v` (25 testes, todos aprovados); `python -m unittest test_cases.test_avaliacao test_cases.test_controle` (43 testes, todos aprovados). Não foi usado `pytest`.
+- Não implementado: biblioteca de controles, interface para controles, associação entre avaliações e controles, escalas de frequência e criticidade, banco de dados, persistência e análise por IA. Não commitada nem enviada ao GitHub.
+
+---
+
 ## Próximas alterações
 
 As próximas mudanças relevantes deverão ser registradas neste arquivo conforme o desenvolvimento avançar.
